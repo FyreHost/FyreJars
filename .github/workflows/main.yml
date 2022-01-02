@@ -107,7 +107,6 @@ jobs:
           mv -f spigot-1.12.1.jar ../spigot/1.12.1.jar
           mv -f spigot-1.12.jar ../spigot/1.12.jar
           mv -f spigot-1.11.2.jar ../spigot/1.11.2.jar
-          mv -f spigot-1.11.1.jar ../spigot/1.11.1.jar
           mv -f spigot-1.11.jar ../spigot/1.11.jar
           mv -f spigot-1.10.2.jar ../spigot/1.10.2.jar
           mv -f spigot-1.9.4.jar ../spigot/1.9.4.jar
