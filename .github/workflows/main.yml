@@ -36,22 +36,43 @@ jobs:
       - name: Build Jars
         run: |
           cd BuildTools
-          java -jar BuildTools.jar --rev 1.16.5
-          java -jar BuildTools.jar --rev 1.16.4
-          java -jar BuildTools.jar --rev 1.16.3
-          java -jar BuildTools.jar --rev 1.16.2
-          java -jar BuildTools.jar --rev 1.16.1
-          java -jar BuildTools.jar --rev 1.15.2
-          java -jar BuildTools.jar --rev 1.15.1
-          java -jar BuildTools.jar --rev 1.15
-          rm BuildTools.jar
+          echo '\u001b[32;1mStarted 1.16.5'
+          java -jar BuildTools.jar --rev 1.16.5 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.16.4'
+          java -jar BuildTools.jar --rev 1.16.4 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.16.3'
+          java -jar BuildTools.jar --rev 1.16.3 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.16.2'
+          java -jar BuildTools.jar --rev 1.16.2 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.16.1'
+          java -jar BuildTools.jar --rev 1.16.1 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.15.2'
+          java -jar BuildTools.jar --rev 1.15.2 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.15.2'
+          java -jar BuildTools.jar --rev 1.15.1 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.15'
+          java -jar BuildTools.jar --rev 1.15 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.14.4'
+          java -jar BuildTools.jar --rev 1.14.4 >> /dev/null 2>&1
+          echo '\u001b[32;1mStarted 1.14.3'
+          java -jar BuildTools.jar --rev 1.14.3 >> /dev/null 2>&1
+          mv -f spigot-1.16.5.jar ../spigot/1.16.5.jar
+          mv -f spigot-1.16.4.jar ../spigot/1.16.4.jar
+          mv -f spigot-1.16.3.jar ../spigot/1.16.3.jar
+          mv -f spigot-1.16.2.jar ../spigot/1.16.2.jar
+          mv -f spigot-1.16.1.jar ../spigot/1.16.1.jar
+          mv -f spigot-1.15.2.jar ../spigot/1.15.2.jar
+          mv -f spigot-1.15.1.jar ../spigot/1.15.1.jar
+          mv -f spigot-1.15.jar ../spigot/1.15.jar
+          mv -f spigot-1.14.4.jar ../spigot/1.14.4.jar
+          mv -f spigot-1.14.3.jar ../spigot/1.14.3.jar
           
       - name: Commit Changes
         uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
         with:
           # The arguments for the `git add` command (see the paragraph below for more info)
           # Default: '.'
-          add: 'src'
+          add: 'spigot'
 
           # The name of the user that will be displayed as the author of the commit.
           # Default: depends on the default_author input
