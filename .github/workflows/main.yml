@@ -29,8 +29,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build Spigot Jars Below 1.17
         run:  | 
-          apt-get install git
-          cd spigot
+          mkdir BuildTools
+          cd BuildTools
           wget -O BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
           git config --global --unset core.autocrlf
           java -jar BuildTools.jar --rev 1.16.5
