@@ -35,6 +35,7 @@ jobs:
           
       - name: Build Jars
         run: |
+          cd BuildTools
           java -jar BuildTools.jar --rev 1.16.5
           java -jar BuildTools.jar --rev 1.16.4
           java -jar BuildTools.jar --rev 1.16.3
