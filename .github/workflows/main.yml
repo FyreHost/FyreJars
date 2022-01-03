@@ -75,8 +75,6 @@ jobs:
           echo 'Started 1.11.2'
           java -jar BuildTools.jar --rev 1.11.2 >> /dev/null 2>&1
           echo 'Started 1.11.1'
-          java -jar BuildTools.jar --rev 1.11.1 >> /dev/null 2>&1
-          echo 'Started 1.11'
           java -jar BuildTools.jar --rev 1.11 >> /dev/null 2>&1
           echo 'Started 1.10.2'
           java -jar BuildTools.jar --rev 1.10.2 >> /dev/null 2>&1
@@ -114,12 +112,196 @@ jobs:
           mv -f spigot-1.9.jar ../spigot/1.9.jar
           mv -f spigot-1.8.8.jar ../spigot/1.8.8.jar
           
+      - name: Set up JDK 16
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: 16
+          distribution: adopt-openj9
+          
+      - name: Build 1.17 Jar
+        run: |
+          cd BuildTools
+          echo 'Started 1.17'
+          java -jar BuildTools.jar --rev 1.17 >> /dev/null 2>&1
+          echo 'Started 1.17.1'
+          java -jar BuildTools.jar --rev 1.17.1 >> /dev/null 2>&1
+          mv -f spigot-1.17.jar ../spigot/1.17.jar
+          mv -f spigot-1.17.1.jar ../spigot/1.17.1.jar
+          
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: 17
+          distribution: adopt-openj9
+          
+      - name: Build 1.18 Jar
+        run: |
+          cd BuildTools
+          echo 'Started 1.18'
+          java -jar BuildTools.jar --rev 1.18 >> /dev/null 2>&1
+          echo 'Started 1.18.1'
+          java -jar BuildTools.jar --rev 1.18.1 >> /dev/null 2>&1
+          mv -f spigot-1.18.jar ../spigot/1.18.jar
+          mv -f spigot-1.18.1.jar ../spigot/1.18.1.jar
+          
+          
+      - name: Remove all Spigot buildtools data
+        run: |
+          rm -rf BuildTools
+          
+      - name: Prepare PaperSpigot
+        run: |
+          mkdir PaperBuildTools
+          cd PaperBuildTools
+          git clone https://github.com/PaperMC/Paper
+          
+      - name: Build 1.18.1 Paper Jar
+        run: |
+          cd PaperBuildTools
+          echo 'Building 1.18.1 Paper Jar'
+          ./gradlew applyPatches >> /dev/null 2>&1
+          ./gradlew createReobfBundlerJar >> /dev/null 2>&1
+          cd build
+          cd libs
+          mv -f paper-bundler-1.18.1-R0.1-SNAPSHOT-reobf.jar ../../../../paper/1.18.1.jar
+          cd ..
+          cd ..
+          git clean -fdX
+          
+      - name: Set up JDK 16
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: 16
+          distribution: adopt-openj9
+          
+      - name: Build 1.17.1 Paper Jar
+        run: |
+          cd PaperBuildTools
+          git checkout ver/1.17.1
+          echo 'Building 1.17.1 Jar'
+          ./gradlew applyPatches >> /dev/null 2>&1
+          ./gradlew reobfJar >> /dev/null 2>&1
+          cd Paper-Server/build/libs
+          mv -f Paper-Server-1.17.1-R0.1-SNAPSHOT-mojang-mapped.jar ../../../../../paper/1.17.1.jar
+          
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: 8
+          distribution: adopt-openj9
+          
+      - name: Build rest of Paper Jars
+        run: |
+          cd PaperBuildTools
+          git restore .
+          git clean -fdX
+          git checkout ver/1.16.5
+          git clean -fdX
+          
+          echo 'Making 1.16.5'
+          
+          ./paper jar >> /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.16.5.jar
+          git restore .
+          git clean -fdX
+          git checkout ver/1.15.2
+          git clean -fdX
+          
+          echo 'Making 1.15.2'
+          
+          ./paper jar >> /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.15.2.jar
+          git restore .
+          git clean -fdX
+          git checkout ver/1.14
+          git clean -fdX
+          
+          echo 'Making 1.14'
+          
+          ./paper jar >> /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.14.jar
+          git restore .
+          git clean -fdX
+          git checkout ver/1.13.2
+          git clean -fdX
+          
+          echo 'Making 1.13.2'
+          
+          ./paper jar >> /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.13.2.jar
+          
+          git restore .
+          git clean -fdX
+          git checkout ver/1.12.2
+          git clean -fdX
+          
+          echo 'Making 1.12.2'
+          
+          ./paper jar >> /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.12.2.jar
+          
+          git restore .
+          git clean -fdX
+          git checkout ver/1.11.2
+          git clean -fdX
+          
+          echo 'Making 1.11.2'
+          
+          ./paper jar >> /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.11.2.jar
+          
+          git restore .
+          git clean -fdX
+          git checkout ver/1.10.2
+          git clean -fdX
+          
+          echo 'Making 1.10.2'
+          
+          ./paper jar >> /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.10.2.jar
+          
+          git restore .
+          git clean -fdX
+          git checkout ver/1.9.4
+          git clean -fdX
+          
+          echo 'Making 1.9.4'
+          
+          ./paper jar >> /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.9.4.jar
+          
+          git restore .
+          git clean -fdX
+          git checkout ver/1.12.2
+          git clean -fdX
+          
+          echo 'Making 1.12.2'
+          
+          bash ./build.sh >> /dev/null 2>&1
+          
+          mv -f paperclip.jar ../../paper/1.8.8.jar'
+          
       - name: Commit Changes
         uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
         with:
           # The arguments for the `git add` command (see the paragraph below for more info)
           # Default: '.'
           add: 'spigot'
+
+          # The name of the user that will be displayed as the author of the commit.
+          # Default: depends on the default_author input
+          author_name: FyreHost Bot
+
+          # The email of the user that will be displayed as the author of the commit.
+          # Default: depends on the default_author input
+          author_email: git@fyrehost.net
+
+      - name: Commit Changes Paper
+        uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
+        with:
+          # The arguments for the `git add` command (see the paragraph below for more info)
+          # Default: '.'
+          add: 'paper'
 
           # The name of the user that will be displayed as the author of the commit.
           # Default: depends on the default_author input
