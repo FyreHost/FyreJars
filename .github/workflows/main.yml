@@ -26,128 +26,13 @@ jobs:
           distribution: adopt-openj9
           
       
-      # Runs a single command using the runners shell
-      - name: Get BuildTools
-        run:  | 
-          mkdir BuildTools
-          cd BuildTools
-          wget -O BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-          
-      - name: Build Jars
-        run: |
-          cd BuildTools
-          echo 'Started 1.16.5'
-          java -jar BuildTools.jar --rev 1.16.5 >> /dev/null 2>&1
-          echo 'Started 1.16.4'
-          java -jar BuildTools.jar --rev 1.16.4 >> /dev/null 2>&1
-          echo 'Started 1.16.3'
-          java -jar BuildTools.jar --rev 1.16.3 >> /dev/null 2>&1
-          echo 'Started 1.16.2'
-          java -jar BuildTools.jar --rev 1.16.2 >> /dev/null 2>&1
-          echo 'Started 1.16.1'
-          java -jar BuildTools.jar --rev 1.16.1 >> /dev/null 2>&1
-          echo 'Started 1.15.2'
-          java -jar BuildTools.jar --rev 1.15.2 >> /dev/null 2>&1
-          echo 'Started 1.15.2'
-          java -jar BuildTools.jar --rev 1.15.1 >> /dev/null 2>&1
-          echo 'Started 1.15'
-          java -jar BuildTools.jar --rev 1.15 >> /dev/null 2>&1
-          echo 'Started 1.14.4'
-          java -jar BuildTools.jar --rev 1.14.4 >> /dev/null 2>&1
-          echo 'Started 1.14.3'
-          java -jar BuildTools.jar --rev 1.14.3 >> /dev/null 2>&1
-          echo 'Started 1.14.2'
-          java -jar BuildTools.jar --rev 1.14.2 >> /dev/null 2>&1
-          echo 'Started 1.14.1'
-          java -jar BuildTools.jar --rev 1.14.1 >> /dev/null 2>&1
-          echo 'Started 1.13.2'
-          java -jar BuildTools.jar --rev 1.13.2 >> /dev/null 2>&1
-          echo 'Started 1.13.1'
-          java -jar BuildTools.jar --rev 1.13.1 >> /dev/null 2>&1
-          echo 'Started 1.13'
-          java -jar BuildTools.jar --rev 1.13 >> /dev/null 2>&1
-          echo 'Started 1.12.2'
-          java -jar BuildTools.jar --rev 1.12.2 >> /dev/null 2>&1
-          echo 'Started 1.12.1'
-          java -jar BuildTools.jar --rev 1.12.1 >> /dev/null 2>&1
-          echo 'Started 1.12'
-          java -jar BuildTools.jar --rev 1.12 >> /dev/null 2>&1
-          echo 'Started 1.11.2'
-          java -jar BuildTools.jar --rev 1.11.2 >> /dev/null 2>&1
-          echo 'Started 1.11.1'
-          java -jar BuildTools.jar --rev 1.11 >> /dev/null 2>&1
-          echo 'Started 1.10.2'
-          java -jar BuildTools.jar --rev 1.10.2 >> /dev/null 2>&1
-          echo 'Started 1.9.4'
-          java -jar BuildTools.jar --rev 1.9.4 >> /dev/null 2>&1
-          echo 'Started 1.9.2'
-          java -jar BuildTools.jar --rev 1.9.2 >> /dev/null 2>&1
-          echo 'Started 1.9'
-          java -jar BuildTools.jar --rev 1.9 >> /dev/null 2>&1
-          echo 'Started 1.8.8'
-          java -jar BuildTools.jar --rev 1.8.8 >> /dev/null 2>&1
-          mv -f spigot-1.16.5.jar ../spigot/1.16.5.jar
-          mv -f spigot-1.16.4.jar ../spigot/1.16.4.jar
-          mv -f spigot-1.16.3.jar ../spigot/1.16.3.jar
-          mv -f spigot-1.16.2.jar ../spigot/1.16.2.jar
-          mv -f spigot-1.16.1.jar ../spigot/1.16.1.jar
-          mv -f spigot-1.15.2.jar ../spigot/1.15.2.jar
-          mv -f spigot-1.15.1.jar ../spigot/1.15.1.jar
-          mv -f spigot-1.15.jar ../spigot/1.15.jar
-          mv -f spigot-1.14.4.jar ../spigot/1.14.4.jar
-          mv -f spigot-1.14.3.jar ../spigot/1.14.3.jar
-          mv -f spigot-1.14.2.jar ../spigot/1.14.2.jar
-          mv -f spigot-1.14.1.jar ../spigot/1.14.1.jar
-          mv -f spigot-1.13.2.jar ../spigot/1.13.2.jar
-          mv -f spigot-1.13.1.jar ../spigot/1.13.1.jar
-          mv -f spigot-1.13.jar ../spigot/1.13.jar
-          mv -f spigot-1.12.2.jar ../spigot/1.12.2.jar
-          mv -f spigot-1.12.1.jar ../spigot/1.12.1.jar
-          mv -f spigot-1.12.jar ../spigot/1.12.jar
-          mv -f spigot-1.11.2.jar ../spigot/1.11.2.jar
-          mv -f spigot-1.11.jar ../spigot/1.11.jar
-          mv -f spigot-1.10.2.jar ../spigot/1.10.2.jar
-          mv -f spigot-1.9.4.jar ../spigot/1.9.4.jar
-          mv -f spigot-1.9.2.jar ../spigot/1.9.2.jar
-          mv -f spigot-1.9.jar ../spigot/1.9.jar
-          mv -f spigot-1.8.8.jar ../spigot/1.8.8.jar
-          
-      - name: Set up JDK 16
-        uses: actions/setup-java@v2.5.0
-        with:
-          java-version: 16
-          distribution: adopt-openj9
-          
-      - name: Build 1.17 Jar
-        run: |
-          cd BuildTools
-          echo 'Started 1.17'
-          java -jar BuildTools.jar --rev 1.17 >> /dev/null 2>&1
-          echo 'Started 1.17.1'
-          java -jar BuildTools.jar --rev 1.17.1 >> /dev/null 2>&1
-          mv -f spigot-1.17.jar ../spigot/1.17.jar
-          mv -f spigot-1.17.1.jar ../spigot/1.17.1.jar
+
           
       - name: Set up JDK 17
         uses: actions/setup-java@v2.5.0
         with:
           java-version: 17
           distribution: adopt-openj9
-          
-      - name: Build 1.18 Jar
-        run: |
-          cd BuildTools
-          echo 'Started 1.18'
-          java -jar BuildTools.jar --rev 1.18 >> /dev/null 2>&1
-          echo 'Started 1.18.1'
-          java -jar BuildTools.jar --rev 1.18.1 >> /dev/null 2>&1
-          mv -f spigot-1.18.jar ../spigot/1.18.jar
-          mv -f spigot-1.18.1.jar ../spigot/1.18.1.jar
-          
-          
-      - name: Remove all Spigot buildtools data
-        run: |
-          rm -rf BuildTools
           
       - name: Prepare PaperSpigot
         run: |
@@ -160,8 +45,8 @@ jobs:
           cd PaperBuildTools
           cd paper
           echo 'Building 1.18.1 Paper Jar'
-          ./gradlew applyPatches >> /dev/null 2>&1
-          ./gradlew createReobfBundlerJar >> /dev/null 2>&1
+          ./gradlew applyPatches
+          ./gradlew createReobfBundlerJar
           cd build
           cd libs
           mv -f paper-bundler-1.18.1-R0.1-SNAPSHOT-reobf.jar ../../../../paper/1.18.1.jar
