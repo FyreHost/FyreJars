@@ -39,6 +39,8 @@ jobs:
           mkdir PaperBuildTools
           cd PaperBuildTools
           git clone https://github.com/PaperMC/Paper
+          git config --global user.email "paperbuild@fyrehost.net"
+          git config --global user.name "Fyre Host"
           
       - name: Build 1.18.1 Paper Jar
         run: |
