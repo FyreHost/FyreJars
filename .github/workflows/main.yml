@@ -67,9 +67,10 @@ jobs:
           cd PaperBuildTools
           cd Paper
           git checkout ver/1.17.1
+          git clean -fdX
           echo 'Building 1.17.1 Jar'
-          ./gradlew applyPatches >> /dev/null 2>&1
-          ./gradlew reobfJar >> /dev/null 2>&1
+          ./gradlew applyPatches
+          ./gradlew reobfJar
           cd Paper-Server/build/libs
           mv -f Paper-Server-1.17.1-R0.1-SNAPSHOT-mojang-mapped.jar ../../../../../paper/1.17.1.jar
           
@@ -90,7 +91,7 @@ jobs:
           
           echo 'Making 1.16.5'
           
-          ./paper jar >> /dev/null 2>&1
+          ./paper jar
           mv -f paperclip.jar ../../paper/1.16.5.jar
           git restore .
           git clean -fdX
@@ -99,7 +100,7 @@ jobs:
           
           echo 'Making 1.15.2'
           
-          ./paper jar >> /dev/null 2>&1
+          ./paper jar
           mv -f paperclip.jar ../../paper/1.15.2.jar
           git restore .
           git clean -fdX
@@ -108,7 +109,7 @@ jobs:
           
           echo 'Making 1.14'
           
-          ./paper jar >> /dev/null 2>&1
+          ./paper jar
           mv -f paperclip.jar ../../paper/1.14.jar
           git restore .
           git clean -fdX
@@ -117,7 +118,7 @@ jobs:
           
           echo 'Making 1.13.2'
           
-          ./paper jar >> /dev/null 2>&1
+          ./paper jar
           mv -f paperclip.jar ../../paper/1.13.2.jar
           
           git restore .
@@ -127,7 +128,7 @@ jobs:
           
           echo 'Making 1.12.2'
           
-          ./paper jar >> /dev/null 2>&1
+          ./paper jar
           mv -f paperclip.jar ../../paper/1.12.2.jar
           
           git restore .
@@ -137,7 +138,7 @@ jobs:
           
           echo 'Making 1.11.2'
           
-          ./paper jar >> /dev/null 2>&1
+          ./paper jar
           mv -f paperclip.jar ../../paper/1.11.2.jar
           
           git restore .
@@ -147,7 +148,7 @@ jobs:
           
           echo 'Making 1.10.2'
           
-          ./paper jar >> /dev/null 2>&1
+          ./paper jar
           mv -f paperclip.jar ../../paper/1.10.2.jar
           
           git restore .
@@ -157,7 +158,7 @@ jobs:
           
           echo 'Making 1.9.4'
           
-          ./paper jar >> /dev/null 2>&1
+          ./paper jar
           mv -f paperclip.jar ../../paper/1.9.4.jar
           
           git restore .
@@ -167,7 +168,7 @@ jobs:
           
           echo 'Making 1.12.2'
           
-          bash ./build.sh >> /dev/null 2>&1
+          bash ./build.sh
           
           mv -f paperclip.jar ../../paper/1.8.8.jar'
           
