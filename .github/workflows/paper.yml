@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build Jars and Commit
+name: Build Paper Jars and Commit
 
 # Controls when the workflow will run
 on:
@@ -19,15 +19,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Set up JDK 8
-        uses: actions/setup-java@v2.5.0
-        with:
-          java-version: 8
-          distribution: adopt-openj9
-          
-      
-
-          
       - name: Set up JDK 17
         uses: actions/setup-java@v2.5.0
         with:
@@ -172,6 +163,25 @@ jobs:
           
           ./paper jar > /dev/null 2>&1
           mv -f paperclip.jar ../../paper/1.9.4.jar
+          
+          cd ..
+          
+          rm -rf paper
+          
+          cd ..
+          rm -rf PaperBuildTools
+          
+      - name: Prepare PaperSpigot
+        run: |
+          mkdir PaperBuildTools
+          cd PaperBuildTools
+          git clone https://github.com/PaperMC/Paper
+          git config --global user.email "paperbuild@fyrehost.net"
+          git config --global user.name "Fyre Host"
+          cd Paper
+          git checkout ver/1.8.8
+          ./build.sh > /dev/null 2>&1
+          mv -f paperclip.jar ../../paper/1.8.8.jar'
           
       - name: Commit Changes
         uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
