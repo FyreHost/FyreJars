@@ -32,7 +32,6 @@ jobs:
           - name: S3 File Upload
             uses: trustcerts/upload-s3-action@v1.1.6
             with:
-                FILE: ./SpigotBuildTools/spigot-${{ matrix.version }}
                 aws_bucket: ${{ secrets.S3_BUCKET }}
                 aws_key_id: ${{ secrets.ACCESS_KEY_ID }}
                 aws_secret_access_key: ${{ secrets.SECRET_ACCESS_KEY }}
