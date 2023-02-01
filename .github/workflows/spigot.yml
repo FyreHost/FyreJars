@@ -1,1 +1,37 @@
+name: 'Build Spigot Jars'
 
+on:
+    workflow_dispatch:
+
+jobs:
+    version_matrix:
+        strategy:
+            matrix:
+                version: [1.19.3, 1.19.2, 1.19.1, 1.19, 1.18.2, 1.18.1, 1.18]
+        runs-on: ubuntu-latest
+        steps:
+          - name: Setup Java 17
+            uses: actions/setup-java@v3.9.0
+            with:
+                java-version: 17
+                
+          - name: Setup Buildtools
+            run: |
+              mkdir SpigotBuildTools
+              cd SpigotBuildTools
+              wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+          
+          - name: Build Jar
+            run: |
+              cd SpigotBuildToools
+              java -jar BuildTools.jar --rev ${{ matrix.version }}
+              
+          - name: S3 File Upload
+            uses: zdurham/s3-upload-github-action@1.0.1
+            env:
+                FILE: ./SpigotBuildTools/spigot-${{ matrix.version }}
+                AWS_REGION: 'earth --endpoint https:// ${{ secrets.S3_ENDPOINT }}'
+                S3_BUCKET: ${{ secrets.S3_BUCKET }}
+                S3_KEY: ${{ secrets.S3_KEY }}
+                AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+                AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
