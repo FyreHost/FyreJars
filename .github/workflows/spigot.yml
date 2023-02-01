@@ -30,11 +30,12 @@ jobs:
               mv -f spigot-${{ matrix.version }}.jar ../build/
               
           - name: S3 File Upload
-            uses: trustcerts/upload-s3-action@v1.1.6
+            uses: jakejarvis/s3-sync-action@v0.5.1
             with:
-                aws_bucket: ${{ secrets.S3_BUCKET }}
-                aws_key_id: ${{ secrets.ACCESS_KEY_ID }}
-                aws_secret_access_key: ${{ secrets.SECRET_ACCESS_KEY }}
-                endpoint: ${{ secrets.S3_ENDPOINT }}
-                source_dir: build
-                destination_dir: spigot
+                AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+                AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+                AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
+                AWS_REGION: 'auto'
+                AWS_S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+                SOURCE_DIR: build
+                DEST_DIR: spigot
