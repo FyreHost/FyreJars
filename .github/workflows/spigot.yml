@@ -24,7 +24,7 @@ jobs:
           
           - name: Build Jar
             run: |
-              cd SpigotBuildToools
+              cd SpigotBuildTools
               java -jar BuildTools.jar --rev ${{ matrix.version }}
               
           - name: S3 File Upload
