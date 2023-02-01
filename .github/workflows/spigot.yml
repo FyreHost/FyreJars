@@ -32,6 +32,6 @@ jobs:
                 FILE: ./SpigotBuildTools/spigot-${{ matrix.version }}
                 AWS_REGION: 'earth --endpoint https:// ${{ secrets.S3_ENDPOINT }}'
                 S3_BUCKET: ${{ secrets.S3_BUCKET }}
-                S3_KEY: ${{ secrets.S3_KEY }}
+                S3_KEY: ''
                 AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
                 AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
