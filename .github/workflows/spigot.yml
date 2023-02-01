@@ -26,13 +26,16 @@ jobs:
             run: |
               cd SpigotBuildTools
               java -jar BuildTools.jar --rev ${{ matrix.version }}
+              mkdir ../build
+              mv -f spigot-${{ matrix.version }}.jar ../build/
               
           - name: S3 File Upload
-            uses: zdurham/s3-upload-github-action@1.0.1
-            env:
+            uses: trustcerts/upload-s3-action@v1.1.6
+            with:
                 FILE: ./SpigotBuildTools/spigot-${{ matrix.version }}
-                AWS_REGION: 'earth --endpoint https:// ${{ secrets.S3_ENDPOINT }}'
-                S3_BUCKET: ${{ secrets.S3_BUCKET }}
-                S3_KEY: ''
-                AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
-                AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
+                aws_bucket: ${{ secrets.S3_BUCKET }}
+                aws_key_id: ${{ secrets.ACCESS_KEY_ID }}
+                aws_secret_access_key: ${{ secrets.SECRET_ACCESS_KEY }}
+                endpoint: ${{ secrets.S3_ENDPOINT }}
+                source_dir: build
+                destination_dir: spigot
